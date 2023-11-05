@@ -13,3 +13,10 @@ const Color secondaryColor10LightTheme = Color(0xFFEEEEEE);
 const Color secondaryColor5LightTheme = Color(0xFFF8F8F8);
 
 const defaultPadding = 16.0;
+
+// colors: [
+//           hexToColor("#46769B"),
+//           hexToColor("#2F5F8A"),
+//           hexToColor("#174978"),
+//           hexToColor("#003366")
+//         ]
