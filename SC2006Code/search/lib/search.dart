@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_place/google_place.dart';
 import 'constant.dart';
 import 'package:geocoding/geocoding.dart';
 
@@ -12,10 +13,14 @@ class _MySearchPageState extends State<MySearchPage> {
   final TextEditingController _currentLocationController =
       TextEditingController();
   final TextEditingController _DestinationController = TextEditingController();
+
+  late GooglePlace googlePlace;
+
   @override
   void initState() {
     super.initState();
     _getCurrentLocation();
+    googlePlace = GooglePlace(apiKey);
   }
 
   @override
@@ -56,6 +61,16 @@ class _MySearchPageState extends State<MySearchPage> {
       setState(() {
         _currentLocationController.text =
             "Error occurred while fetching location";
+      });
+    }
+  }
+
+  List<AutocompletePrediction> predictions = [];
+  autocompleteSearch(String input) async {
+    var result = await googlePlace.autocomplete.get(input);
+    if (result != null && result.predictions != null && mounted) {
+      setState(() {
+        predictions = result.predictions;
       });
     }
   }
@@ -101,6 +116,13 @@ class _MySearchPageState extends State<MySearchPage> {
                     onPressed: _getCurrentLocation,
                   ),
                 ),
+                onChanged: (input) async {
+                  if (input.isNotEmpty) {
+                    //call api
+                  } else {
+                    //clear
+                  }
+                },
               ),
             ),
             Container(
