@@ -70,9 +70,13 @@ class _MySearchPageState extends State<MySearchPage> {
           padding: const EdgeInsets.only(
             left: defaultPadding,
           ),
-          child: CircleAvatar(
-            backgroundColor: secondaryColor10LightTheme,
-            child: Icon(Icons.location_on),
+          child: InkWell(
+            onTap: () {
+              //Navigator.of(context).pop()
+            },
+            child: CircleAvatar(
+                backgroundColor: secondaryColor10LightTheme,
+                child: Icon(Icons.arrow_back)),
           ),
         ),
         title: Text(
@@ -99,7 +103,6 @@ class _MySearchPageState extends State<MySearchPage> {
                 ),
               ),
             ),
-            SizedBox(height: 20.0),
             Container(
               color: secondaryColor10LightTheme,
               child: TextFormField(
@@ -107,6 +110,7 @@ class _MySearchPageState extends State<MySearchPage> {
                 decoration: InputDecoration(
                   labelText: 'Destination',
                   border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.location_on),
                 ),
               ),
             ),
