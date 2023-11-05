@@ -11,8 +11,7 @@ class MySearchPage extends StatefulWidget {
 class _MySearchPageState extends State<MySearchPage> {
   final TextEditingController _currentLocationController =
       TextEditingController();
-  final TextEditingController _intendedLocationController =
-      TextEditingController();
+  final TextEditingController _DestinationController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -22,7 +21,7 @@ class _MySearchPageState extends State<MySearchPage> {
   @override
   void dispose() {
     _currentLocationController.dispose();
-    _intendedLocationController.dispose();
+    _DestinationController.dispose();
     super.dispose();
   }
 
@@ -104,9 +103,9 @@ class _MySearchPageState extends State<MySearchPage> {
             Container(
               color: secondaryColor10LightTheme,
               child: TextFormField(
-                controller: _intendedLocationController,
+                controller: _DestinationController,
                 decoration: InputDecoration(
-                  labelText: 'Intended Location',
+                  labelText: 'Destination',
                   border: OutlineInputBorder(),
                 ),
               ),
