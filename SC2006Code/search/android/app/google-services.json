@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "725846260619",
+    "project_id": "teambobcarpark-eb03e",
+    "storage_bucket": "teambobcarpark-eb03e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:725846260619:android:18e3a916b8f25823038d8e",
+        "android_client_info": {
+          "package_name": "com.teambobcarpark.search"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFkH07jgmLPX2BfWR4r80bNZxHkF5i5c4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

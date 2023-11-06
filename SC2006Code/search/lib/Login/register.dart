@@ -1,9 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:search/Login/colors.dart';
+import 'package:search/Login/loginMain.dart';
+import 'package:search/Login/nextPage.dart';
 import 'package:search/Widgets/widgets.dart';
+import 'package:search/main.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+  const RegisterScreen({super.key});
 
   @override
   RegisterState createState() => RegisterState();
@@ -21,7 +25,7 @@ class RegisterState extends State<RegisterScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text(
-          "Sign Up",
+          "Register",
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
@@ -43,22 +47,33 @@ class RegisterState extends State<RegisterScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                reusableTextField("Enter UserName", Icons.person_outline, false,
-                    username),
+                reusableTextField("Username (Nickname)", Icons.person_outline,
+                    false, username),
                 const SizedBox(
                   height: 20,
                 ),
-                reusableTextField("Enter Email Id", Icons.person_outline, false,
-                    email),
+                reusableTextField(
+                    "Valid Email Address", Icons.person_outline, false, email),
                 const SizedBox(
                   height: 20,
                 ),
-                reusableTextField("Enter Password", Icons.lock_outlined, true,
-                    password),
+                reusableTextField("Password (8 - 32 characters)",
+                    Icons.lock_outlined, true, password),
                 const SizedBox(
                   height: 20,
                 ),
-                
+                signButton(context, false, () {
+                  FirebaseAuth.instance
+                      .createUserWithEmailAndPassword(
+                          email: email.text, password: password.text)
+                      .then((value) {
+                    print("Login Successful!");
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()));
+                  }).onError((error, stackTrace) {
+                    print("Error: ${error.toString()}");
+                  });
+                })
               ],
             ),
           ))),
