@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_place/google_place.dart';
@@ -15,6 +16,8 @@ class _MySearchPageState extends State<MySearchPage> {
   final TextEditingController _DestinationController = TextEditingController();
 
   late GooglePlace googlePlace;
+  List<AutocompletePrediction> predictions = [];
+  Timer? _debounce;
 
   @override
   void initState() {
@@ -65,12 +68,12 @@ class _MySearchPageState extends State<MySearchPage> {
     }
   }
 
-  List<AutocompletePrediction> predictions = [];
   autocompleteSearch(String input) async {
     var result = await googlePlace.autocomplete.get(input);
     if (result != null && result.predictions != null && mounted) {
+      print(result.predictions!.first.description);
       setState(() {
-        predictions = result.predictions;
+        predictions = result.predictions!;
       });
     }
   }
@@ -117,11 +120,14 @@ class _MySearchPageState extends State<MySearchPage> {
                   ),
                 ),
                 onChanged: (input) async {
-                  if (input.isNotEmpty) {
-                    //call api
-                  } else {
-                    //clear
-                  }
+                  if (_debounce?.isActive ?? false) _debounce!.cancel();
+                  _debounce = Timer(const Duration(milliseconds: 1000), () {
+                    if (input.isNotEmpty) {
+                      autocompleteSearch(input);
+                    } else {
+                      //clear
+                    }
+                  });
                 },
               ),
             ),
