@@ -66,16 +66,6 @@ class _MySearchPageState extends State<MySearchPage> {
     }
   }
 
-  List<AutocompletePrediction> predictions = [];
-  autocompleteSearch(String input) async {
-    var result = await googlePlace.autocomplete.get(input);
-    if (result != null && result.predictions != null && mounted) {
-      setState(() {
-        predictions = result.predictions!;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,14 +76,9 @@ class _MySearchPageState extends State<MySearchPage> {
           padding: const EdgeInsets.only(
             left: defaultPadding,
           ),
-          child: InkWell(
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => LoginScreen())); // EDITED THIS LINE!! WILL NEED TO CHANGE LATER
-            },
-            child: CircleAvatar(
-                backgroundColor: secondaryColor10LightTheme,
-                child: Icon(Icons.arrow_back)),
+          child: CircleAvatar(
+            backgroundColor: secondaryColor10LightTheme,
+            child: Icon(Icons.location_on),
           ),
         ),
         title: Text(
