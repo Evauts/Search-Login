@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_place/google_place.dart';
+import 'package:search/Login/login.dart';
 import 'constant.dart';
 import 'package:geocoding/geocoding.dart';
 
 class MySearchPage extends StatefulWidget {
-  const MySearchPage({super.key});
-
   @override
   _MySearchPageState createState() => _MySearchPageState();
 }
@@ -14,10 +14,14 @@ class _MySearchPageState extends State<MySearchPage> {
   final TextEditingController _currentLocationController =
       TextEditingController();
   final TextEditingController _DestinationController = TextEditingController();
+
+  late GooglePlace googlePlace;
+
   @override
   void initState() {
     super.initState();
     _getCurrentLocation();
+    googlePlace = GooglePlace(apiKey);
   }
 
   @override
@@ -62,22 +66,37 @@ class _MySearchPageState extends State<MySearchPage> {
     }
   }
 
+  List<AutocompletePrediction> predictions = [];
+  autocompleteSearch(String input) async {
+    var result = await googlePlace.autocomplete.get(input);
+    if (result != null && result.predictions != null && mounted) {
+      setState(() {
+        predictions = result.predictions!;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: secondaryColor5LightTheme,
         centerTitle: true,
-        leading: const Padding(
-          padding: EdgeInsets.only(
+        leading: Padding(
+          padding: const EdgeInsets.only(
             left: defaultPadding,
           ),
-          child: CircleAvatar(
-            backgroundColor: secondaryColor10LightTheme,
-            child: Icon(Icons.location_on),
+          child: InkWell(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LoginScreen())); // EDITED THIS LINE!! WILL NEED TO CHANGE LATER
+            },
+            child: CircleAvatar(
+                backgroundColor: secondaryColor10LightTheme,
+                child: Icon(Icons.arrow_back)),
           ),
         ),
-        title: const Text(
+        title: Text(
           "ParkerApp",
           style: TextStyle(color: textColorLightTheme),
         ),
@@ -87,28 +106,35 @@ class _MySearchPageState extends State<MySearchPage> {
         child: Column(
           children: [
             Container(
-              margin: const EdgeInsets.only(bottom: 20.0),
+              margin: EdgeInsets.only(bottom: 20.0),
               color: secondaryColor10LightTheme,
               child: TextFormField(
                 controller: _currentLocationController,
                 decoration: InputDecoration(
                   labelText: 'Current Location',
-                  border: const OutlineInputBorder(),
+                  border: OutlineInputBorder(),
                   prefixIcon: IconButton(
-                    icon: const Icon(Icons.my_location),
+                    icon: Icon(Icons.my_location),
                     onPressed: _getCurrentLocation,
                   ),
                 ),
+                onChanged: (input) async {
+                  if (input.isNotEmpty) {
+                    //call api
+                  } else {
+                    //clear
+                  }
+                },
               ),
             ),
-            const SizedBox(height: 20.0),
             Container(
               color: secondaryColor10LightTheme,
               child: TextFormField(
                 controller: _DestinationController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'Destination',
                   border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.location_on),
                 ),
               ),
             ),
