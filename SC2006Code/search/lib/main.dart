@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'search.dart';
 
 void main() {
-  runApp(ParkerApp());
+  runApp(const ParkerApp());
 }
 
 class ParkerApp extends StatelessWidget {
+  const ParkerApp({super.key});
+
   //Main Root of application
 
   @override
@@ -16,7 +18,7 @@ class ParkerApp extends StatelessWidget {
         primarySwatch: Colors.blueGrey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MySearchPage(),
+      home: const MySearchPage(),
     );
   }
 }

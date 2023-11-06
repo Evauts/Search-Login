@@ -1,3 +1,5 @@
 {
-    "java.compile.nullAnalysis.mode": "automatic"
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "cmake.sourceDirectory": "C:/Users/Rudra Prasadh Ganesh/Desktop/Rudra/Coding Stuff/Flutter/Search-Login/SC2006Code/search/windows/flutter"
 }

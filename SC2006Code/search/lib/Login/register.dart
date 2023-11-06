@@ -3,7 +3,7 @@ import 'package:search/Login/colors.dart';
 import 'package:search/Widgets/widgets.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+  const RegisterScreen({super.key});
 
   @override
   RegisterState createState() => RegisterState();
@@ -21,7 +21,7 @@ class RegisterState extends State<RegisterScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text(
-          "Sign Up",
+          "Register",
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
@@ -43,17 +43,17 @@ class RegisterState extends State<RegisterScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                reusableTextField("Enter UserName", Icons.person_outline, false,
+                reusableTextField("UserName (Nickname)", Icons.person_outline, false,
                     username),
                 const SizedBox(
                   height: 20,
                 ),
-                reusableTextField("Enter Email Id", Icons.person_outline, false,
+                reusableTextField("Valid Email Address", Icons.person_outline, false,
                     email),
                 const SizedBox(
                   height: 20,
                 ),
-                reusableTextField("Enter Password", Icons.lock_outlined, true,
+                reusableTextField("Password (8 - 32 characters)", Icons.lock_outlined, true,
                     password),
                 const SizedBox(
                   height: 20,

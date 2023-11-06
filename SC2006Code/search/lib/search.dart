@@ -4,6 +4,8 @@ import 'constant.dart';
 import 'package:geocoding/geocoding.dart';
 
 class MySearchPage extends StatefulWidget {
+  const MySearchPage({super.key});
+
   @override
   _MySearchPageState createState() => _MySearchPageState();
 }
@@ -66,8 +68,8 @@ class _MySearchPageState extends State<MySearchPage> {
       appBar: AppBar(
         backgroundColor: secondaryColor5LightTheme,
         centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.only(
+        leading: const Padding(
+          padding: EdgeInsets.only(
             left: defaultPadding,
           ),
           child: CircleAvatar(
@@ -75,7 +77,7 @@ class _MySearchPageState extends State<MySearchPage> {
             child: Icon(Icons.location_on),
           ),
         ),
-        title: Text(
+        title: const Text(
           "ParkerApp",
           style: TextStyle(color: textColorLightTheme),
         ),
@@ -85,26 +87,26 @@ class _MySearchPageState extends State<MySearchPage> {
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.only(bottom: 20.0),
+              margin: const EdgeInsets.only(bottom: 20.0),
               color: secondaryColor10LightTheme,
               child: TextFormField(
                 controller: _currentLocationController,
                 decoration: InputDecoration(
                   labelText: 'Current Location',
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   prefixIcon: IconButton(
-                    icon: Icon(Icons.my_location),
+                    icon: const Icon(Icons.my_location),
                     onPressed: _getCurrentLocation,
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             Container(
               color: secondaryColor10LightTheme,
               child: TextFormField(
                 controller: _DestinationController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Destination',
                   border: OutlineInputBorder(),
                 ),
