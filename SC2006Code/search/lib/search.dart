@@ -69,12 +69,12 @@ class _MySearchPageState extends State<MySearchPage> {
     }
   }
 
-  List<AutocompletePrediction> predictions = [];
+  
   autocompleteSearch(String input) async {
     var result = await googlePlace.autocomplete.get(input);
     if (result != null && result.predictions != null && mounted) {
       setState(() {
-        predictions = result.predictions;
+        predictions = result.predictions!;
       });
     }
   }
