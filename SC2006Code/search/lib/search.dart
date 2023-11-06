@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_place/google_place.dart';
+import 'package:search/locationsuggestionlist.dart';
 import 'constant.dart';
 import 'package:geocoding/geocoding.dart';
 
@@ -17,7 +18,6 @@ class _MySearchPageState extends State<MySearchPage> {
 
   late GooglePlace googlePlace;
   List<AutocompletePrediction> predictions = [];
-  Timer? _debounce;
 
   @override
   void initState() {
@@ -68,13 +68,14 @@ class _MySearchPageState extends State<MySearchPage> {
     }
   }
 
-  autocompleteSearch(String input) async {
-    var result = await googlePlace.autocomplete.get(input);
-    if (result != null && result.predictions != null && mounted) {
-      setState(() {
-        predictions = result.predictions!;
+  void placeAutocomplete(String input) {
+    Uri uni = Uri.http(
+      "maps.googleapis.com",
+      "maps/api/place/autocomplete/json",
+      {
+        "input": input,
+        "key": apiKey,
       });
-    }
   }
 
   @override
@@ -89,7 +90,7 @@ class _MySearchPageState extends State<MySearchPage> {
           ),
           child: CircleAvatar(
             backgroundColor: secondaryColor10LightTheme,
-            child: Icon(Icons.location_on),
+            child: Icon(Icons.arrow_back),
           ),
         ),
         title: Text(
@@ -114,22 +115,7 @@ class _MySearchPageState extends State<MySearchPage> {
                     onPressed: _getCurrentLocation,
                   ),
                 ),
-                onChanged: (input) async {
-                  if (_debounce?.isActive ?? false) _debounce!.cancel();
-                  _debounce = Timer(const Duration(milliseconds: 1000), () {
-                    if (input.isNotEmpty) {
-                      autocompleteSearch(input);
-                    } else {
-                      //clear
-                    }
-                  });
-                },
               ),
-            ),
-            const Divider(
-              height: 4,
-              thickness: 4,
-              color: secondaryColor10LightTheme,
             ),
             Container(
               color: secondaryColor10LightTheme,
@@ -142,6 +128,10 @@ class _MySearchPageState extends State<MySearchPage> {
                 ),
               ),
             ),
+            const Divider(
+              color: Colors.grey,
+            ),
+            LocationSuggestion(location: "Singapore", press: () {})
           ],
         ),
       ),
