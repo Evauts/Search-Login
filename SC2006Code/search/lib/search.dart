@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_place/google_place.dart';
-import 'package:search/Login/login.dart';
 import 'constant.dart';
 import 'package:geocoding/geocoding.dart';
 
@@ -69,7 +68,6 @@ class _MySearchPageState extends State<MySearchPage> {
     }
   }
 
-  
   autocompleteSearch(String input) async {
     var result = await googlePlace.autocomplete.get(input);
     if (result != null && result.predictions != null && mounted) {
@@ -127,6 +125,11 @@ class _MySearchPageState extends State<MySearchPage> {
                   });
                 },
               ),
+            ),
+            const Divider(
+              height: 4,
+              thickness: 4,
+              color: secondaryColor10LightTheme,
             ),
             Container(
               color: secondaryColor10LightTheme,
