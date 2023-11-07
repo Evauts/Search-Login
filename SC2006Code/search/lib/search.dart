@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:search/locationsuggestionlist.dart';
-import 'package:search/network_util.dart';
+import 'package:search/Components/locationsuggestionlist.dart';
+import 'package:search/Components/network_util.dart';
 import 'constant.dart';
 import 'package:geocoding/geocoding.dart';
-import 'auto_complete_prediction.dart';
-import 'place_ac_response.dart';
+import 'Components/auto_complete_prediction.dart';
+import 'Components/place_ac_response.dart';
 
 class MySearchPage extends StatefulWidget {
   @override
@@ -16,8 +16,6 @@ class _MySearchPageState extends State<MySearchPage> {
   final TextEditingController _currentLocationController =
       TextEditingController();
   final TextEditingController _DestinationController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   List<AutocompletePrediction> Placepredictions = [];
 
   @override
@@ -81,6 +79,10 @@ class _MySearchPageState extends State<MySearchPage> {
       if (result.predictions != null) {
         setState(() {
           Placepredictions = result.predictions!;
+          print("Placepredictions length: ${Placepredictions.length}");
+          for (var prediction in Placepredictions) {
+            print("Prediction: ${prediction.description}");
+          }
         });
       }
     }
@@ -108,53 +110,50 @@ class _MySearchPageState extends State<MySearchPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(defaultPadding),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              Container(
-                margin: EdgeInsets.only(bottom: 20.0),
-                color: secondaryColor10LightTheme,
-                child: TextFormField(
-                  onChanged: (value) {
-                    placeAutocomplete(value);
-                  },
-                  controller: _currentLocationController,
-                  decoration: InputDecoration(
-                    labelText: 'Current Location',
-                    border: OutlineInputBorder(),
-                    prefixIcon: IconButton(
-                      icon: Icon(Icons.my_location),
-                      onPressed: _getCurrentLocation,
-                    ),
+        child: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.only(bottom: 20.0),
+              color: secondaryColor10LightTheme,
+              child: TextFormField(
+                onChanged: (value) {
+                  placeAutocomplete(value);
+                },
+                controller: _currentLocationController,
+                decoration: InputDecoration(
+                  labelText: 'Current Location',
+                  border: OutlineInputBorder(),
+                  prefixIcon: IconButton(
+                    icon: Icon(Icons.my_location),
+                    onPressed: _getCurrentLocation,
                   ),
                 ),
               ),
-              Container(
-                color: secondaryColor10LightTheme,
-                child: TextFormField(
-                  controller: _DestinationController,
-                  decoration: InputDecoration(
-                    labelText: 'Destination',
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.location_on),
-                  ),
+            ),
+            Container(
+              color: secondaryColor10LightTheme,
+              child: TextFormField(
+                controller: _DestinationController,
+                decoration: InputDecoration(
+                  labelText: 'Destination',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.location_on),
                 ),
               ),
-              const Divider(
-                color: Colors.grey,
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: Placepredictions.length,
-                  itemBuilder: (context, index) => LocationSuggestion(
-                    location: Placepredictions[index].description!,
-                    press: () {},
-                  ),
+            ),
+            const Divider(
+              color: Colors.grey,
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: Placepredictions.length,
+                itemBuilder: (context, index) => LocationSuggestion(
+                  location: Placepredictions[index].description!,
+                  press: () {},
                 ),
               ),
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

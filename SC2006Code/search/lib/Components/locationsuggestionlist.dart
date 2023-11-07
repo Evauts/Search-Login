@@ -28,9 +28,7 @@ class LocationSuggestion extends StatelessWidget {
           ),
         ),
         const Divider(
-          color: Colors.grey,
-          indent: 16.0, // Adjust the left indent of the Divider
-          endIndent: 16.0, // Adjust the right indent of the Divider
+          color: Colors.grey, // Adjust the right indent of the Divider
         )
       ],
     );
