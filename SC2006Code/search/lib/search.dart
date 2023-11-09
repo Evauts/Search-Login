@@ -157,6 +157,24 @@ class _MySearchPageState extends State<MySearchPage> {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(defaultPadding),
+              child: Container(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: () {},
+                  icon: Icon(Icons.search),
+                  label: const Text("Search Carpark"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: secondaryColor20LightTheme,
+                    elevation: 0,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                  ),
+                ),
+              ),
+            ),
             const Divider(
               color: Colors.grey,
             ),
