@@ -1,7 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'search.dart';
+import 'FeedBack/FeedbackScreen.dart';
+import 'Login/login.dart';
+import 'Search/search.dart';
+import 'Home/HomeScreen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(ParkerApp());
 }
 
@@ -16,7 +22,13 @@ class ParkerApp extends StatelessWidget {
         primarySwatch: Colors.blueGrey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MySearchPage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => LoginScreen(),
+        '/home': (context) => HomeScreen(),
+        '/search': (context) => MySearchPage(),
+        '/feedback': (context) => FeedbackScreen(),
+      },
     );
   }
 }

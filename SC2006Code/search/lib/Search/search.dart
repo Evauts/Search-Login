@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:search/Components/locationsuggestionlist.dart';
 import 'package:search/Components/network_util.dart';
-import 'constant.dart';
+import '../Components/constant.dart';
 import 'package:geocoding/geocoding.dart';
-import 'Components/auto_complete_prediction.dart';
-import 'Components/place_ac_response.dart';
-import 'package:google_maps_webservice/places.dart';
+import '../Components/auto_complete_prediction.dart';
+import '../Components/place_ac_response.dart';
 
 enum ActiveTextField {
   CurrentLocation,

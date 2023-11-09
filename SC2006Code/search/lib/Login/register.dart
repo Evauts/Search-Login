@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:search/Login/colors.dart';
-import 'package:search/Login/loginMain.dart';
 import 'package:search/Login/nextPage.dart';
 import 'package:search/Widgets/widgets.dart';
 import 'package:search/main.dart';
