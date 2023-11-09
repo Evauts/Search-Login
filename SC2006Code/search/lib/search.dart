@@ -7,7 +7,11 @@ import 'package:geocoding/geocoding.dart';
 import 'Components/auto_complete_prediction.dart';
 import 'Components/place_ac_response.dart';
 import 'package:google_maps_webservice/places.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
+
+enum ActiveTextField {
+  CurrentLocation,
+  Destination,
+}
 
 class MySearchPage extends StatefulWidget {
   @override
@@ -19,6 +23,7 @@ class _MySearchPageState extends State<MySearchPage> {
       TextEditingController();
   final TextEditingController _DestinationController = TextEditingController();
   List<AutocompletePrediction> placepredictions = [];
+  ActiveTextField _activeTextField = ActiveTextField.CurrentLocation;
 
   @override
   void initState() {
@@ -70,7 +75,7 @@ class _MySearchPageState extends State<MySearchPage> {
 
   void placeAutocomplete(String reply) async {
     Uri uri =
-        Uri.http("maps.googleapis.com", "maps/api/place/autocomplete/json", {
+        Uri.https("maps.googleapis.com", "maps/api/place/autocomplete/json", {
       "input": reply,
       "key": apiKey,
     });
@@ -119,7 +124,10 @@ class _MySearchPageState extends State<MySearchPage> {
               color: secondaryColor10LightTheme,
               child: TextFormField(
                 onChanged: (value) {
-                  placeAutocomplete(value);
+                  setState(() {
+                    _activeTextField = ActiveTextField.CurrentLocation;
+                    placeAutocomplete(value);
+                  });
                 },
                 controller: _currentLocationController,
                 decoration: InputDecoration(
@@ -135,6 +143,12 @@ class _MySearchPageState extends State<MySearchPage> {
             Container(
               color: secondaryColor10LightTheme,
               child: TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    _activeTextField = ActiveTextField.Destination;
+                    placeAutocomplete(value);
+                  });
+                },
                 controller: _DestinationController,
                 decoration: InputDecoration(
                   labelText: 'Destination',
@@ -151,7 +165,21 @@ class _MySearchPageState extends State<MySearchPage> {
                 itemCount: placepredictions.length,
                 itemBuilder: (context, index) => LocationSuggestion(
                   location: placepredictions[index].description!,
-                  press: () {},
+                  controller:
+                      _activeTextField == ActiveTextField.CurrentLocation
+                          ? _currentLocationController
+                          : _DestinationController,
+                  press: () {
+                    setState(() {
+                      if (_activeTextField == ActiveTextField.CurrentLocation) {
+                        _currentLocationController.text =
+                            placepredictions[index].description!;
+                      } else {
+                        _DestinationController.text =
+                            placepredictions[index].description!;
+                      }
+                    });
+                  },
                 ),
               ),
             )
