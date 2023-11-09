@@ -24,7 +24,6 @@ class PlaceAutocompleteResponse {
   static PlaceAutocompleteResponse parseAutocompleteResult(
       String responseBody) {
     final parsed = json.decode(responseBody).cast<String, dynamic>();
-
     return PlaceAutocompleteResponse.fromJson(parsed);
   }
 }

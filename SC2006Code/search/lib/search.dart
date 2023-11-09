@@ -6,6 +6,8 @@ import 'constant.dart';
 import 'package:geocoding/geocoding.dart';
 import 'Components/auto_complete_prediction.dart';
 import 'Components/place_ac_response.dart';
+import 'package:google_maps_webservice/places.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
 
 class MySearchPage extends StatefulWidget {
   @override
@@ -16,7 +18,7 @@ class _MySearchPageState extends State<MySearchPage> {
   final TextEditingController _currentLocationController =
       TextEditingController();
   final TextEditingController _DestinationController = TextEditingController();
-  List<AutocompletePrediction> Placepredictions = [];
+  List<AutocompletePrediction> placepredictions = [];
 
   @override
   void initState() {
@@ -78,9 +80,9 @@ class _MySearchPageState extends State<MySearchPage> {
           PlaceAutocompleteResponse.parseAutocompleteResult(response);
       if (result.predictions != null) {
         setState(() {
-          Placepredictions = result.predictions!;
-          print("Placepredictions length: ${Placepredictions.length}");
-          for (var prediction in Placepredictions) {
+          placepredictions = result.predictions!;
+          print("Placepredictions length: ${placepredictions.length}");
+          for (var prediction in placepredictions) {
             print("Prediction: ${prediction.description}");
           }
         });
@@ -146,9 +148,9 @@ class _MySearchPageState extends State<MySearchPage> {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: Placepredictions.length,
+                itemCount: placepredictions.length,
                 itemBuilder: (context, index) => LocationSuggestion(
-                  location: Placepredictions[index].description!,
+                  location: placepredictions[index].description!,
                   press: () {},
                 ),
               ),
