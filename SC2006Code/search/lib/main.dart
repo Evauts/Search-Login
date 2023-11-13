@@ -2,7 +2,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:search/firebase_options.dart'; // Assuming this is a custom configuration file for Firebase
-import 'FeedBack/FeedbackScreen.dart';
 import 'Login/login.dart';
 import 'Search/search.dart';
 import 'Home/HomeScreen.dart';
@@ -41,7 +40,6 @@ class ParkerApp extends StatelessWidget {
         '/': (context) => const LoginScreen(),      // Route for the Login screen
         '/home': (context) => const HomeScreen(),   // Route for the Home screen
         '/search': (context) => const MySearchPage(), // Route for the Search page
-        '/feedback': (context) => const FeedbackScreen(), // Route for the Feedback screen
       },
     );
   }

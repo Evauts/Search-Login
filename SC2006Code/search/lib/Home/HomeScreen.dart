@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:search/Search/search.dart';
-import 'package:search/FeedBack/FeedbackScreen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -20,13 +19,6 @@ class HomeScreen extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => const MySearchPage()));
                 },
               child: const Text('Go to Search'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const FeedbackScreen()));
-              },
-              child: const Text('Give Feedback'),
             ),
           ],
         ),
