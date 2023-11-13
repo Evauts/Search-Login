@@ -37,11 +37,6 @@ Container signButton(BuildContext context, bool login, Function onclick) {
         onPressed: () {
           onclick();
         },
-        child: Text(
-          login ? 'Login' : 'Register',
-          style: const TextStyle(
-              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
-        ),
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.resolveWith((states) {
             if (states.contains(MaterialState.pressed)) {
@@ -53,6 +48,11 @@ Container signButton(BuildContext context, bool login, Function onclick) {
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           )
+        ),
+        child: Text(
+          login ? 'Login' : 'Register',
+          style: const TextStyle(
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
         ),
       ),
   );
