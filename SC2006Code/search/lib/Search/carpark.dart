@@ -107,8 +107,8 @@ loadData() async{
   await rootBundle.loadString('assets/HDBCarparkInformation.csv');
   List<List<dynamic>> rowsAsListOfValues =
   const CsvToListConverter().convert(csvData, eol: '\n');
-  print(csvData);
-  print(rowsAsListOfValues.length);
+  // print(csvData);
+  // print(rowsAsListOfValues.length);
   rowsAsListOfValues.take(10).forEach((row) {
     _getLatLngFromAddress(row[1]).then((value) {
       Marker createdMarker = Marker( //add second marker
@@ -121,18 +121,24 @@ loadData() async{
           icon: BitmapDescriptor.defaultMarker,
           //Icon for Marker
           onTap: () {
-
-
-            Navigator.push(
-            context,
-            MaterialPageRoute(
-            builder: (context) => NavScreen(destination: value),
-            ),
-            );
-
-
-
-
+            showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text("${MarkerId(row[1])}"),
+                  //content: Text("Number of available slots is ${listOfCarParks["items"]}"),
+                  actions: [
+                    TextButton(
+                      child: Text("Ok"),
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NavScreen(destination: value),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+            ) ;
           }
       );
       print("marker has been created");
@@ -145,13 +151,26 @@ loadData() async{
       }
     });
     });
-
-
 }
+
+  int findLotsAvailable(String jsonData, String carparkNumber) {
+    var data = jsonDecode(jsonData);
+    var carparkData = data['items'][0]['carpark_data'];
+
+    for (var carpark in carparkData) {
+      if (carpark['carpark_number'] == carparkNumber) {
+        var lotsAvailable = carpark['carpark_info'][0]['lots_available'];
+        print('Lots available in $carparkNumber: $lotsAvailable');
+        return lotsAvailable;
+      }
+    }
+
+    print('Carpark number $carparkNumber not found.');
+    return 0;
+  }
 
   Future<List<CarParkItem>> fetchCarParks() async {
     final response = await http.get(Uri.parse('https://api.data.gov.sg/v1/transport/carpark-availability'));
-
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body)['items'];
       return jsonResponse.map((data) => CarParkItem.fromJson(data)).toList();
