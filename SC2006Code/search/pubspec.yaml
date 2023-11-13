@@ -35,6 +35,12 @@ dependencies:
   permission_handler: ^11.0.1
   flutter_google_places: ^0.3.0
   google_maps_webservice: ^0.0.16
+  google_maps_flutter: ^2.5.0
+  uuid: ^4.2.1
+  dio: ^5.3.3
+  flutter_polyline_points: ^1.0.0
+  location: ^5.0.0
+  csv: ^5.1.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -71,6 +77,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/HDBCarparkInformation.csv
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
